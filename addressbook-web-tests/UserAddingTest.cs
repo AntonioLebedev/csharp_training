@@ -21,6 +21,7 @@ namespace WebAddressbookTests
         public void SetupTest()
         {
             driver = new FirefoxDriver();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
             baseURL = "http://localhost/addressbook";
             verificationErrors = new StringBuilder();
         }
@@ -113,19 +114,19 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("homepage")).Clear();
             driver.FindElement(By.Name("homepage")).SendKeys(contact.Homepage);
             driver.FindElement(By.Name("bday")).Click();
-            new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(contact.Bday);
-            driver.FindElement(By.Name("bmonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(contact.Bmonth);
-            driver.FindElement(By.Name("byear")).Click();
-            driver.FindElement(By.Name("byear")).Clear();
-            driver.FindElement(By.Name("byear")).SendKeys(contact.Byear);
-            driver.FindElement(By.Name("aday")).Click();
-            new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(contact.Aday);
-            driver.FindElement(By.Name("amonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.Amonth);
-            driver.FindElement(By.Name("ayear")).Click();
-            driver.FindElement(By.Name("ayear")).Clear();
-            driver.FindElement(By.Name("ayear")).SendKeys(contact.Ayear);
+            //new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(contact.Bday);
+            //driver.FindElement(By.Name("bmonth")).Click();
+            //new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(contact.Bmonth);
+            //driver.FindElement(By.Name("byear")).Click();
+            //driver.FindElement(By.Name("byear")).Clear();
+            //driver.FindElement(By.Name("byear")).SendKeys(contact.Byear);
+            //driver.FindElement(By.Name("aday")).Click();
+            //new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(contact.Aday);
+            //driver.FindElement(By.Name("amonth")).Click();
+            //new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(contact.Amonth);
+            //driver.FindElement(By.Name("ayear")).Click();
+            //driver.FindElement(By.Name("ayear")).Clear();
+            //driver.FindElement(By.Name("ayear")).SendKeys(contact.Ayear);
             driver.FindElement(By.Name("address2")).Click();
             driver.FindElement(By.Name("address2")).Clear();
             driver.FindElement(By.Name("address2")).SendKeys(contact.Address2);
