@@ -45,7 +45,7 @@ namespace WebAddressbookTests
             GoToHomePage();
             Login(new AccountData("admin", "secret"));
             GoToContactsPage();
-            SelectContact();
+            SelectContact(1);
             RemoveContact();
         }
 
@@ -55,9 +55,9 @@ namespace WebAddressbookTests
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
         }
 
-        private void SelectContact()
+        private void SelectContact(int index)
         {
-            driver.FindElement(By.Id("1")).Click();
+            driver.FindElement(By.XPath("//tr[" + index + "]/td/input")).Click();
         }
 
         private void GoToContactsPage()
