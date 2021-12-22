@@ -15,7 +15,7 @@ namespace WebAddressbookTests
         private string baseURL;
         protected bool acceptNextAlert = true;
 
-        public NavigationHelper1(IWebDriver driver, string baseURL) : base(driver)
+        public NavigationHelper1(ApplicationManager1 manager1, string baseURL) : base(manager1)
         {
             this.baseURL = baseURL;
         }
