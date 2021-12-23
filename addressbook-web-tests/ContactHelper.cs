@@ -11,17 +11,17 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    public class ContactHelper : HelperBase1
+    public class ContactHelper : HelperBase
     {
         protected bool acceptNextAlert = true;
 
-        public ContactHelper(ApplicationManager1 manager1) : base(manager1)
+        public ContactHelper(ApplicationManager manager) : base(manager)
         {
         }
 
         public ContactHelper Create(ContactData contact)
         {
-            manager1.Navigator1.GoToContactsPage();
+            manager.Navigator.GoToContactsPage();
 
             ClickAddNew();
             FillContactData(contact);
@@ -31,7 +31,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int p)
         {
-            manager1.Navigator1.GoToContactsPage();
+            manager.Navigator.GoToContactsPage();
             SelectContact(1);
             RemoveContact();
             return this;
