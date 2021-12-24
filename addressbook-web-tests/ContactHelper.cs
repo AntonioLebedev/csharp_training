@@ -29,10 +29,21 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Modify(int v, ContactData newData)
+        {
+            manager.Navigator.GoToContactsPage();
+            SelectContact(v);
+            InitContactModification(v);
+            FillContactData(newData);
+            ContactModificationConfirm();
+            return this;
+        }
+
+
         public ContactHelper Remove(int p)
         {
             manager.Navigator.GoToContactsPage();
-            SelectContact(1);
+            SelectContact(p);
             RemoveContact();
             return this;
         }
@@ -151,6 +162,18 @@ namespace WebAddressbookTests
             {
                 acceptNextAlert = true;
             }
+        }
+
+        public ContactHelper ContactModificationConfirm()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification(int index)
+        {
+            driver.FindElement(By.XPath("//tr[" + index + "]/td[8]/a/img")).Click();
+            return this;
         }
     }
 }
