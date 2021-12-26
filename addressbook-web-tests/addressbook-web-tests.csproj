@@ -61,13 +61,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContactHelper.cs" />
-    <Compile Include="UserModificationTests.cs" />
+    <Compile Include="AppManager\ContactHelper.cs" />
+    <Compile Include="Tests\TestSuiteFixture.cs" />
+    <Compile Include="UnitTest1.cs" />
+    <Compile Include="Tests\UserModificationTests.cs" />
     <Compile Include="Tests\GroupModificationTests.cs" />
     <Compile Include="Model\AccountData.cs" />
     <Compile Include="AppManager\ApplicationManager.cs" />
     <Compile Include="Circle.cs" />
-    <Compile Include="ContactData.cs" />
+    <Compile Include="Model\ContactData.cs" />
     <Compile Include="Figure.cs" />
     <Compile Include="Model\GroupData.cs" />
     <Compile Include="AppManager\GroupHelper.cs" />
@@ -79,8 +81,8 @@
     <Compile Include="Tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\GroupCreationTests.cs" />
-    <Compile Include="UserAddingTest.cs" />
-    <Compile Include="UserRemovalTest.cs" />
+    <Compile Include="Tests\UserAddingTest.cs" />
+    <Compile Include="Tests\UserRemovalTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
