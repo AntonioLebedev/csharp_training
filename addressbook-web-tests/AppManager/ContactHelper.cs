@@ -19,6 +19,22 @@ namespace WebAddressbookTests
         {
         }
 
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+
+            manager.Navigator.GoToContactsPage();
+
+            ICollection<IWebElement> elements1 = driver.FindElements(By.CssSelector("td.center"));
+
+            foreach (IWebElement element1 in elements1)
+            {
+                contacts.Add(new ContactData(element1.Text));
+            }
+
+            return contacts;
+        }
+
         public ContactHelper Create(ContactData contact)
         {
             manager.Navigator.GoToContactsPage();
