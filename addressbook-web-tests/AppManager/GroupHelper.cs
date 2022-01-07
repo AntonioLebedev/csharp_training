@@ -24,20 +24,22 @@ namespace WebAddressbookTests
             return this;
         }
 
+        private List<GroupData> groupCache = null;
+
         public List<GroupData> GetGroupList()
         {
-            List<GroupData> groups = new List<GroupData>();
-
-            manager.Navigator.GoToGroupsPage();
-
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
-
-            foreach (IWebElement element in elements)
+            if (groupCache == null)
             {
-                groups.Add(new GroupData(element.Text));
+                groupCache = new List<GroupData>();
+                manager.Navigator.GoToGroupsPage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+                foreach (IWebElement element in elements)
+                {
+                    groupCache.Add(new GroupData(element.Text));
+                }
             }
 
-            return groups;
+            return new List<GroupData>(groupCache);
         }
 
         public GroupHelper Modify(int p, GroupData newData)
@@ -59,6 +61,26 @@ namespace WebAddressbookTests
             ReturnToGroupsPageAndLogout();
             return this;
         }
+
+        public int GetGroupCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count;
+        }
+
+        public GroupHelper IsGroupPresent()
+        {
+            manager.Navigator.GoToGroupsPage();
+            if (!IsElementPresent(By.CssSelector("span.group")))
+            {
+                GroupData group = (new GroupData("aaa"));
+                group.Header = "ddd";
+                group.Footer = "fff";
+
+                Create(group);
+            }
+            return this;
+        }
+
         public GroupHelper InitNewGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
@@ -79,6 +101,7 @@ namespace WebAddressbookTests
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            groupCache = null;
             return this;
         }
 
@@ -98,12 +121,14 @@ namespace WebAddressbookTests
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/input[5]")).Click();
+            groupCache = null;
             return this;
         }
 
         public GroupHelper SubmitGroupModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            groupCache = null;
             return this;
         }
 
