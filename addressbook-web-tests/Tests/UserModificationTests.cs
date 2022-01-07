@@ -14,7 +14,7 @@ namespace WebAddressbookTests
         public void UserModificationTest()
         {
             ContactData newData = new ContactData("Feofan", null, null);
-            app.Contacts.Modify(1, newData);
+            app.Contacts.Modify(0, newData);
             app.Auth.Logout();
         }
 
