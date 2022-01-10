@@ -19,22 +19,32 @@ namespace WebAddressbookTests
         {
         }
 
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.CssSelector("tr[name='entry']")).Count;
+        }
+
+        private List<ContactData> contactCache = null;
+
+
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-
-            manager.Navigator.GoToContactsPage();
-
-            ICollection<IWebElement> elements1 = driver.FindElements(By.CssSelector("tr[name='entry']"));
-
-            foreach (IWebElement element1 in elements1)
+          if (contactCache == null)
             {
-                IList<IWebElement> cells = element1.FindElements(By.TagName("td"));
-                contacts.Add(new ContactData(element1.Text, null, null));
-                Console.WriteLine(element1.Text);
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToHomePage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name='entry']"));
+                foreach (IWebElement element in elements)
+                {
+                    IWebElement lastname = element.FindElement(By.CssSelector("td:nth-child(2)"));
+                    IWebElement firstname = element.FindElement(By.CssSelector("td:nth-child(3)"));
+                    contactCache.Add(new ContactData(firstname.Text, null, lastname.Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
+                }
             }
-
-            return contacts;
+            return new List<ContactData>(contactCache);
         }
 
         public ContactHelper Create(ContactData contact)
