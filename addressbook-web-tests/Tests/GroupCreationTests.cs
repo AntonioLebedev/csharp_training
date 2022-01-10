@@ -57,14 +57,14 @@ namespace WebAddressbookTests
         [Test]
         public void BadNameGroupCreationTest()
         {
-            GroupData group = new GroupData("a'a");
+            GroupData group = (new GroupData("a'a"));
             group.Header = "";
             group.Footer = "";
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
-            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupList());
+            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
 

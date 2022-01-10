@@ -19,33 +19,6 @@ namespace WebAddressbookTests
         {
         }
 
-        public int GetContactCount()
-        {
-            return driver.FindElements(By.CssSelector("tr[name='entry']")).Count;
-        }
-
-        private List<ContactData> contactCache = null;
-
-
-        public List<ContactData> GetContactList()
-        {
-          if (contactCache == null)
-            {
-                contactCache = new List<ContactData>();
-                manager.Navigator.GoToHomePage();
-                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name='entry']"));
-                foreach (IWebElement element in elements)
-                {
-                    IWebElement lastname = element.FindElement(By.CssSelector("td:nth-child(2)"));
-                    IWebElement firstname = element.FindElement(By.CssSelector("td:nth-child(3)"));
-                    contactCache.Add(new ContactData(firstname.Text, null, lastname.Text)
-                    {
-                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
-                    });
-                }
-            }
-            return new List<ContactData>(contactCache);
-        }
 
         public ContactHelper Create(ContactData contact)
         {
@@ -55,6 +28,25 @@ namespace WebAddressbookTests
             FillContactData(contact);
             ContactCreationConfirm();
             return this;
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name='entry']"));
+            foreach (IWebElement element in elements)
+            {
+                IWebElement lastname = element.FindElement(By.CssSelector("td:nth-child(2)"));
+                IWebElement firstname = element.FindElement(By.CssSelector("td:nth-child(3)"));
+                //второй вариант реализации
+                //IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                //IWebElement lastname = cells[1];
+                //IWebElement firstname = cells[2];
+                contacts.Add(new ContactData(firstname.Text, null, lastname.Text));
+
+            }
+            return contacts;
         }
 
         public ContactHelper Modify(int v, ContactData newData)
@@ -77,7 +69,17 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper ClickAddNew()
+        public ContactHelper CreateContactIfNotPresent()
+        {
+            if (!IsElementPresent(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img")))
+            {
+                ContactData contact = (new ContactData("Ivan", "Ivanovich", "Fedorov"));
+                Create(contact);
+            }
+            return this;
+        }
+
+        public ContactHelper InitNewContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
@@ -141,9 +143,23 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper InitContactModification(int index)
+        {
+            driver.FindElement(By.XPath("//tr[" + (index + 1) + "]/td[8]/a/img")).Click();
+            return this;
+        }
+
+
+        public ContactHelper ContactModificationConfirm()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
@@ -153,6 +169,13 @@ namespace WebAddressbookTests
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
             return this;
         }
+
+        public ContactHelper ClickAddNew()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
+            return this;
+        }
+
         protected string CloseAlertAndGetItsText()
         {
             try
@@ -175,32 +198,5 @@ namespace WebAddressbookTests
             }
         }
 
-        public ContactHelper ContactModificationConfirm()
-        {
-            driver.FindElement(By.Name("update")).Click();
-            return this;
-        }
-
-        public ContactHelper InitContactModification(int index)
-        {
-            driver.FindElement(By.XPath("//tr[" + (index + 1) + "]/td[8]/a/img")).Click();
-            return this;
-        }
-
-        public ContactHelper CreateContactIfNotPresent()
-        {
-            if (!IsElementPresent(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img")))
-            {
-                ContactData contact = (new ContactData("Ivan", "Ivanovich", "Fedorov"));
-                Create(contact);
-            }
-            return this;
-        }
-
-        public ContactHelper InitNewContactCreation()
-        {
-            driver.FindElement(By.LinkText("add new")).Click();
-            return this;
-        }
     }
 }
