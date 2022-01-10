@@ -13,11 +13,11 @@ namespace WebAddressbookTests
         [Test]
         public void UserRemovalTest()
         {
-            app.Contacts.IsContactPresent();
+            app.Contacts.CreateContactIfNotPresent();
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            app.Contacts.Remove(1);
+            app.Contacts.Remove(0);
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
 

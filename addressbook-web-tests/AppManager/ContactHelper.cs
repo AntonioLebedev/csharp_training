@@ -49,7 +49,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(int v, ContactData newData)
         {
-            IsContactPresent();
+            CreateContactIfNotPresent();
             manager.Navigator.GoToContactsPage();
             SelectContact(v);
             InitContactModification(v);
@@ -177,7 +177,7 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper IsContactPresent()
+        public ContactHelper CreateContactIfNotPresent()
         {
             if (!IsElementPresent(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img")))
             {
