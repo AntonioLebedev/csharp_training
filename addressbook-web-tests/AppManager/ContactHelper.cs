@@ -51,7 +51,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(int v, ContactData newData)
         {
-            CreateContactIfNotPresent();
             manager.Navigator.GoToContactsPage();
             SelectContact(v);
             InitContactModification(v);
@@ -145,7 +144,7 @@ namespace WebAddressbookTests
 
         public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("//tr[" + (index + 1) + "]/td[8]/a/img")).Click();
+            driver.FindElement(By.XPath("//tr[" + (index + 2) + "]/td[8]/a/img")).Click();
             return this;
         }
 
