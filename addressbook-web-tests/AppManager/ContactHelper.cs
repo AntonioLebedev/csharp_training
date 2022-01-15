@@ -27,6 +27,7 @@ namespace WebAddressbookTests
             ClickAddNew();
             FillContactData(contact);
             ContactCreationConfirm();
+            manager.Navigator.GoToContactsPage();
             return this;
         }
 
@@ -176,6 +177,7 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            driver.FindElement(By.CssSelector("div.msgbox"));
             contactCache = null;
             return this;
         }
