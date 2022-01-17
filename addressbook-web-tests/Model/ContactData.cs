@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
+        private string allPhones;
+        private string allEmails;
 
-        public ContactData (string firstname, string middlename, string lastname)
+        public ContactData (string firstname, string lastname)
         {
             Firstname = firstname;
-            Middlename = middlename;
             Lastname = lastname;
         }
 
@@ -59,6 +61,24 @@ namespace WebAddressbookTests
             return Lastname.CompareTo(other.Lastname) & Firstname.CompareTo(other.Firstname);
         }
 
+        private string Cleanup(string phone)
+        {
+            if(phone == null || phone == "")
+            {
+                return "";
+            }
+            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+        }
+
+        private string Cleanup2(string email)
+        {
+            if(email == null || email == "")
+            {
+                return "";
+            }
+            return email.Replace(" ", "") + "\r\n";
+        }
+
         public string Firstname { get; set; }
 
         public string Middlename { get; set; }
@@ -79,6 +99,28 @@ namespace WebAddressbookTests
 
         public string Workphone { get; set; }
 
+        public string Secondaryhomephone { get; set; }
+
+        public string Allphones 
+        { 
+            get 
+            {
+                if(allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (Cleanup(Homephone) + Cleanup(Mobilephone) + Cleanup(Workphone) + Cleanup(Secondaryhomephone)).Trim();
+                }
+            } 
+            set 
+            {
+                allPhones = value;
+            } 
+        }
+
+
         public string Fax { get; set; }
 
         public string Email { get; set; }
@@ -86,6 +128,26 @@ namespace WebAddressbookTests
         public string Email2 { get; set; }
 
         public string Email3 { get; set; }
+
+        public string AllEmails
+        {
+            get
+            {
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return (Cleanup2(Email) + Cleanup2(Email2) + Cleanup2(Email3)).Trim();
+                }
+            }
+            set
+            {
+                allEmails = value;
+            }
+        }
+
 
         public string Homepage { get; set; }
 

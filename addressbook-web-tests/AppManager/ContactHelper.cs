@@ -44,7 +44,7 @@ namespace WebAddressbookTests
                 {
                     IWebElement lastname = element.FindElement(By.CssSelector("td:nth-child(2)"));
                     IWebElement firstname = element.FindElement(By.CssSelector("td:nth-child(3)"));
-                    contactCache.Add(new ContactData(firstname.Text, null, lastname.Text)
+                    contactCache.Add(new ContactData(firstname.Text, lastname.Text)
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     });
@@ -81,7 +81,7 @@ namespace WebAddressbookTests
         {
             if (!IsElementPresent(By.XPath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img")))
             {
-                ContactData contact = (new ContactData("Ivan", "Ivanovich", "Fedorov"));
+                ContactData contact = (new ContactData("Ivan", "Fedorov"));
                 Create(contact);
             }
             return this;
@@ -158,7 +158,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-
         public ContactHelper ContactModificationConfirm()
         {
             driver.FindElement(By.Name("update")).Click();
@@ -208,6 +207,62 @@ namespace WebAddressbookTests
             {
                 acceptNextAlert = true;
             }
+        }
+
+        public ContactData GetContactInformationFromTable(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"));
+            string lastName = cells[1].Text;
+            string firstName = cells[2].Text;
+            string address = cells[3].Text;
+            string allEmails = cells[4].Text;
+            string allPhones = cells[5].Text;
+
+            return new ContactData(firstName, lastName)
+            {
+                Address1 = address,
+                Allphones = allPhones,
+                AllEmails = allEmails
+            };
+        }
+
+        public ContactData GetContactInformationFromEditForm(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactModification(0);
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string secondaryhomePhone = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
+            return new ContactData(firstName, lastName)
+            {
+                Address1 = address,
+                Homephone = homePhone,
+                Mobilephone = mobilePhone,
+                Workphone = workPhone,
+                Secondaryhomephone = secondaryhomePhone,
+                Email = email1,
+                Email2 = email2,
+                Email3 = email3
+            };
+
+        }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.GoToHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
         }
 
     }

@@ -13,7 +13,7 @@ namespace WebAddressbookTests
         [Test]
         public void UserAddingTest()
         {
-            ContactData contact = new ContactData("Alexander", "Viktorovich", "Biryukov");
+            ContactData contact = new ContactData("Alexander", "Biryukov");
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
@@ -34,7 +34,7 @@ namespace WebAddressbookTests
         [Test]
         public void EmptyUserAddingTest()
         {
-            ContactData contact = new ContactData("", "", "");
+            ContactData contact = new ContactData("", "");
             
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
