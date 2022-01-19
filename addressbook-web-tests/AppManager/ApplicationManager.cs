@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -16,9 +15,8 @@ namespace WebAddressbookTests
         protected IWebDriver driver;
         protected string baseURL;
 
-        protected bool acceptNextAlert = true;
         protected LoginHelper loginHelper;
-        protected NavigationHelper navigator;
+        protected NavigationHelper navigationHelper;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
 
@@ -31,11 +29,10 @@ namespace WebAddressbookTests
             baseURL = "http://localhost";
 
             loginHelper = new LoginHelper(this);
-            navigator = new NavigationHelper(this, baseURL);
+            navigationHelper = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
         }
-
         ~ApplicationManager()
         {
             try
@@ -50,7 +47,7 @@ namespace WebAddressbookTests
 
         public static ApplicationManager GetInstance()
         {
-            if (! app.IsValueCreated)
+            if (!app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
                 newInstance.Navigator.GoToHomePage();
@@ -58,6 +55,7 @@ namespace WebAddressbookTests
             }
             return app.Value;
         }
+
 
         public IWebDriver Driver
         {
@@ -74,15 +72,13 @@ namespace WebAddressbookTests
                 return loginHelper;
             }
         }
-
         public NavigationHelper Navigator
         {
             get
             {
-                return navigator;
+                return navigationHelper;
             }
         }
-
         public GroupHelper Groups
         {
             get
@@ -97,5 +93,6 @@ namespace WebAddressbookTests
                 return contactHelper;
             }
         }
+
     }
 }

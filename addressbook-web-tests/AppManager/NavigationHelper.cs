@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -12,8 +11,8 @@ namespace WebAddressbookTests
 {
     public class NavigationHelper : HelperBase
     {
-        private string baseURL;
-        protected bool acceptNextAlert = true;
+
+        public string baseURL;
 
         public NavigationHelper(ApplicationManager manager, string baseURL) : base(manager)
         {
@@ -25,10 +24,8 @@ namespace WebAddressbookTests
             {
                 return;
             }
-
-            driver.Navigate().GoToUrl(baseURL + "/addressbook/");
+            driver.Navigate().GoToUrl(baseURL + "/addressbook");
         }
-
         public void GoToGroupsPage()
         {
             if (driver.Url == baseURL + "/addressbook/group.php"
@@ -36,51 +33,17 @@ namespace WebAddressbookTests
             {
                 return;
             }
-
             driver.FindElement(By.LinkText("groups")).Click();
         }
-
-        public void GoToContactsPage()
+        public void ReturnToHomePage()
         {
-            if (driver.Url == baseURL + "/addressbook/")
+            if (driver.Url == baseURL)
             {
                 return;
             }
-
-            driver.FindElement(By.LinkText("home")).Click();
-            acceptNextAlert = true;
-        }
-
-        public void BackToHomePage()
-        {
-            if (driver.Url == baseURL + "/addressbook/")
-            {
-                return;
-            }
-
             driver.FindElement(By.LinkText("home page")).Click();
         }
 
-        protected string CloseAlertAndGetItsText()
-        {
-            try
-            {
-                IAlert alert = driver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                if (acceptNextAlert)
-                {
-                    alert.Accept();
-                }
-                else
-                {
-                    alert.Dismiss();
-                }
-                return alertText;
-            }
-            finally
-            {
-                acceptNextAlert = true;
-            }
-        }
+
     }
 }

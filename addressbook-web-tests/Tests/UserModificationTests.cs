@@ -14,7 +14,6 @@ namespace WebAddressbookTests
         public void UserModificationTest()
         {
             ContactData newData = new ContactData("Feofan", "Zimin");
-            app.Contacts.CreateContactIfNotPresent();
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
