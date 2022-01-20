@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppManager\ContactHelper.cs" />
-    <Compile Include="ContactInformationTest.cs" />
+    <Compile Include="Tests\UserInformationTest.cs" />
     <Compile Include="SearchTests.cs" />
     <Compile Include="Tests\AuthTestBase.cs" />
     <Compile Include="Tests\LoginTests.cs" />
@@ -84,8 +84,8 @@
     <Compile Include="Tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\GroupCreationTests.cs" />
-    <Compile Include="Tests\UserAddingTest.cs" />
-    <Compile Include="Tests\UserRemovalTest.cs" />
+    <Compile Include="Tests\UserCreationTests.cs" />
+    <Compile Include="Tests\UserRemoval.cs" />
     <Compile Include="UnitTest2.cs" />
   </ItemGroup>
   <ItemGroup>

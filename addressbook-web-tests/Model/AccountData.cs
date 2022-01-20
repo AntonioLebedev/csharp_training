@@ -27,6 +27,7 @@ namespace WebAddressbookTests
             {
                 username = value;
             }
+
         }
         public string Password
         {
@@ -36,8 +37,9 @@ namespace WebAddressbookTests
             }
             set
             {
-                username = value;
+                password = value;
             }
+
         }
     }
 }

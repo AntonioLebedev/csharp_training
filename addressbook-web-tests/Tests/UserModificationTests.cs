@@ -13,15 +13,18 @@ namespace WebAddressbookTests
         [Test]
         public void UserModificationTest()
         {
-            ContactData newData = new ContactData("Feofan", "Zimin");
+            ContactData newData = (new ContactData("Vasiliy", "Barsukov"));
+            newData.Middlename = "Grigorievich";
+
+            app.Contacts.IsContactPresent();
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
-
             ContactData oldData = oldContacts[0];
 
             app.Contacts.Modify(0, newData);
 
-            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactQuantity());
+
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts[0].Firstname = newData.Firstname;
@@ -35,13 +38,11 @@ namespace WebAddressbookTests
             {
                 if (contact.Id == oldData.Id)
                 {
+                    Assert.AreEqual(newData.Lastname, contact.Lastname);
                     Assert.AreEqual(newData.Firstname, contact.Firstname);
                 }
             }
 
-            app.Auth.Logout();
         }
-
-
     }
 }

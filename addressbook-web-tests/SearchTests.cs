@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
+
 
 namespace WebAddressbookTests
 {
@@ -15,9 +12,10 @@ namespace WebAddressbookTests
     public class SearchTests : AuthTestBase
     {
         [Test]
-        public void TestSearch()
+        public void SearchTest()
         {
             System.Console.Out.Write(app.Contacts.GetNumberOfSearchResults());
         }
+
     }
 }

@@ -31,13 +31,13 @@ namespace WebAddressbookTests
             return new ContactData(firstName, lastName)
             {
                 Address = address,
-                AllEmail = allEmail,
+                AllEmails = allEmail,
                 AllPhones = allPhones
             };
 
         }
 
-        public ContactData GetContactInformationFromEditForm()
+        public ContactData GetInfoFromEditForm()
         {
             manager.Navigator.GoToHomePage();
             InitContactModification(0);
@@ -94,7 +94,7 @@ namespace WebAddressbookTests
         }
 
 
-        public string GetContactInformationFromDetailsForm()
+        public string GetInfoFromDetailsForm()
         {
             manager.Navigator.GoToHomePage();
             OpenContactDetails(0);
@@ -108,11 +108,11 @@ namespace WebAddressbookTests
             InitNewContactCreation();
             FillContactForm(contact);
             SubmitContacCreation();
-            manager.Navigator.GoToHomePage();
+            manager.Navigator.ReturnToHomePage();
             return this;
         }
 
-        public int GetContactCount()
+        public int GetContactQuantity()
         {
             return driver.FindElements(By.CssSelector("tr[name='entry']")).Count;
         }
@@ -130,10 +130,6 @@ namespace WebAddressbookTests
                 {
                     IWebElement lastname = element.FindElement(By.CssSelector("td:nth-child(2)"));
                     IWebElement firstname = element.FindElement(By.CssSelector("td:nth-child(3)"));
-                    //второй вариант реализации
-                    //IList<IWebElement> cells = element.FindElements(By.TagName("td"));
-                    //IWebElement lastname = cells[1];
-                    //IWebElement firstname = cells[2];
                     contactCache.Add(new ContactData(firstname.Text, lastname.Text)
                     {
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
@@ -149,7 +145,7 @@ namespace WebAddressbookTests
             InitContactModification(p);
             FillContactForm(newData);
             SubmitContacModification();
-            manager.Navigator.GoToHomePage();
+            manager.Navigator.ReturnToHomePage();
             return this;
         }
 

@@ -10,13 +10,13 @@ namespace WebAddressbookTests
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         public string allPhones;
-        public string allEmail;
-        public string allDetails;
-        public string fullNameNicknameblock;
-        public string titleCompAddrBlock;
-        public string phonesBlock;
-        public string emailHomepageBlock;
-        public string birthAnnivBlock;
+        public string allEmails;
+        public string allInformation;
+        public string fullNameNicknamesection;
+        public string titleCompanyAddresssection;
+        public string phonesSection;
+        public string emailHomepageSection;
+        public string birthdayAnniversarysection;
         public string secondaryBlock;
 
         public ContactData(string firstname, string lastname)
@@ -45,7 +45,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return $"contact = {Lastname} {Firstname}";
+            return "Firstname=" + Firstname + "\nMiddlename= " + Middlename + "\nLastname= " + Lastname;
         }
 
         public int CompareTo(ContactData other)
@@ -262,126 +262,126 @@ namespace WebAddressbookTests
             }
         }
 
-        public string AllEmail
+        public string AllEmails
         {
             get
             {
-                if (allEmail != null)
+                if (allEmails != null)
                 {
-                    return allEmail;
+                    return allEmails;
                 }
                 else
                 {
-                    return (ReturnDetailwithRN(Email) + ReturnDetailwithRN(Email2) + ReturnDetailwithRN(Email3)).Trim();
+                    return (ReturnDetailswithRN(Email) + ReturnDetailswithRN(Email2) + ReturnDetailswithRN(Email3)).Trim();
                 }
             }
             set
             {
-                allEmail = value;
+                allEmails = value;
             }
         }
 
-        public string AllDetails
+        public string AllInformation
         {
             get
             {
-                string fullNameBlock = FullNameNicknameblock;
-                string titleBlock = TitleCompAddrBlock;
-                string phoneBlock = PhonesBlock;
-                string emailBlock = EmailHomepageBlock;
-                string dateBlock = BirthAnnivBlock;
-                string secondaryBlock = SecondaryBlock;
-                string allDetails2 = "";
+                string fullNameBlock = FullNameNicknamesection;
+                string titleBlock = TitleCompanyAddresssection;
+                string phoneBlock = PhonesSection;
+                string emailBlock = EmailHomepageSection;
+                string dateBlock = BirthdayAnniversarysection;
+                string secondaryBlock = SecondarySection;
+                string allInformation2 = "";
 
 
 
-                if (allDetails != null)
+                if (allInformation != null)
                 {
-                    return allDetails = "";
+                    return allInformation = "";
                 }
                 else
                 {
                     if (fullNameBlock != "")
                     {
-                        allDetails2 = fullNameBlock;
+                        allInformation2 = fullNameBlock;
                     }
                     if (titleBlock != "")
                     {
-                        if (allDetails2 != "")
+                        if (allInformation2 != "")
                         {
-                            allDetails2 += ReturnDetailwithRNabove(titleBlock);
+                            allInformation2 += ReturnDetailswithRNabove(titleBlock);
                         }
                         else
                         {
-                            allDetails2 = titleBlock;
+                            allInformation2 = titleBlock;
                         }
                     }
                     if (phoneBlock != "")
                     {
-                        if (allDetails2 != "")
+                        if (allInformation2 != "")
                         {
-                            allDetails2 += ReturnDetailwithRNRNabove(phoneBlock);
+                            allInformation2 += ReturnDetailswithRNRNabove(phoneBlock);
                         }
                         else
                         {
-                            allDetails2 = phoneBlock;
+                            allInformation2 = phoneBlock;
                         }
                     }
                     if (emailBlock != "")
                     {
-                        if (allDetails2 != "")
+                        if (allInformation2 != "")
                         {
-                            allDetails2 += ReturnDetailwithRNRNabove(emailBlock);
+                            allInformation2 += ReturnDetailswithRNRNabove(emailBlock);
                         }
                         else
                         {
-                            allDetails2 = emailBlock;
+                            allInformation2 = emailBlock;
                         }
                     }
                     if (dateBlock != null && dateBlock != "")
                     {
-                        if (allDetails2 != "")
+                        if (allInformation2 != "")
                         {
-                            allDetails2 += ReturnDetailwithRNRNabove(dateBlock);
+                            allInformation2 += ReturnDetailswithRNRNabove(dateBlock);
                         }
                         else
                         {
-                            allDetails2 = dateBlock;
+                            allInformation2 = dateBlock;
                         }
                     }
                     else
                         if (secondaryBlock != "" && secondaryBlock != "P:")
                     {
-                        allDetails2 += "\r\n";
+                        allInformation2 += "\r\n";
 
                     }
                     if (secondaryBlock != "")
                     {
-                        if (allDetails2 != "")
+                        if (allInformation2 != "")
                         {
-                            allDetails2 += ReturnDetailwithRNRNabove(secondaryBlock);
+                            allInformation2 += ReturnDetailswithRNRNabove(secondaryBlock);
                         }
                         else
                         {
-                            allDetails2 = secondaryBlock;
+                            allInformation2 = secondaryBlock;
                         }
                     }
                 }
-                return allDetails2.Trim();
+                return allInformation2.Trim();
             }
             set
             {
-                allDetails = value;
+                allInformation = value;
             }
         }
 
-        public string FullNameNicknameblock
+        public string FullNameNicknamesection
         {
             get
             {
-                if (fullNameNicknameblock != null)
+                if (fullNameNicknamesection != null)
                 {
-                    return fullNameNicknameblock;
+                    return fullNameNicknamesection;
                 }
                 else
                 {
@@ -390,188 +390,188 @@ namespace WebAddressbookTests
                         return (ReturnFullName(Firstname.Trim(), Middlename.Trim(), Lastname.Trim()) + "\r\n" + Nickname.Trim());
                     }
                     else
-                        return (ReturnDetailwithoutRN(Nickname));
+                        return (ReturnDetailswithoutRN(Nickname));
                 }
             }
             set
             {
-                fullNameNicknameblock = value;
+                fullNameNicknamesection = value;
             }
         }
 
-        public string TitleCompAddrBlock
+        public string TitleCompanyAddresssection
         {
             get
             {
-                string titleCompAddrBlock = "";
+                string titleCompanyAddresssection = "";
                 if (Title != null && Title != "")
                 {
-                    titleCompAddrBlock = Title.Trim();
+                    titleCompanyAddresssection = Title.Trim();
                 }
                 if (Company != null && Company != "")
                 {
-                    if (titleCompAddrBlock != null && titleCompAddrBlock != "")
+                    if (titleCompanyAddresssection != null && titleCompanyAddresssection != "")
                     {
-                        titleCompAddrBlock += "\r\n" + Company.Trim();
+                        titleCompanyAddresssection += "\r\n" + Company.Trim();
                     }
                     else
                     {
-                        titleCompAddrBlock = Company.Trim();
+                        titleCompanyAddresssection = Company.Trim();
                     }
                 }
                 if (Address != null && Address != "")
                 {
-                    if (titleCompAddrBlock != null && titleCompAddrBlock != "")
+                    if (titleCompanyAddresssection != null && titleCompanyAddresssection != "")
                     {
-                        titleCompAddrBlock += "\r\n" + Address.Trim();
+                        titleCompanyAddresssection += "\r\n" + Address.Trim();
                     }
                     else
                     {
-                        titleCompAddrBlock = Address.Trim();
+                        titleCompanyAddresssection = Address.Trim();
                     }
                 }
-                return titleCompAddrBlock;
+                return titleCompanyAddresssection;
             }
             set
             {
-                titleCompAddrBlock = value;
+                titleCompanyAddresssection = value;
             }
         }
 
-        public string PhonesBlock
+        public string PhonesSection
         {
             get
             {
-                string phonesBlock = "";
+                string phonesSection = "";
 
                 if (HomePhone != null && HomePhone != "")
                 {
-                    phonesBlock = ("H: " + HomePhone.Trim()).Trim();
+                    phonesSection = ("H: " + HomePhone.Trim()).Trim();
                 }
                 if (MobilePhone != null && MobilePhone != "")
                 {
-                    if (phonesBlock != null && phonesBlock != "")
+                    if (phonesSection != null && phonesSection != "")
                     {
-                        phonesBlock += "\r\n" + ("M: " + MobilePhone.Trim()).Trim();
+                        phonesSection += "\r\n" + ("M: " + MobilePhone.Trim()).Trim();
                     }
                     else
                     {
-                        phonesBlock = ("M: " + MobilePhone.Trim()).Trim();
+                        phonesSection = ("M: " + MobilePhone.Trim()).Trim();
                     }
                 }
                 if (WorkPhone != null && WorkPhone != "")
                 {
-                    if (phonesBlock != null && phonesBlock != "")
+                    if (phonesSection != null && phonesSection != "")
                     {
-                        phonesBlock += "\r\n" + ("W: " + WorkPhone.Trim()).Trim();
+                        phonesSection += "\r\n" + ("W: " + WorkPhone.Trim()).Trim();
                     }
                     else
                     {
-                        phonesBlock = ("W: " + WorkPhone.Trim()).Trim();
+                        phonesSection = ("W: " + WorkPhone.Trim()).Trim();
                     }
                 }
                 if (Fax != null && Fax != "")
                 {
-                    if (phonesBlock != null && phonesBlock != "")
+                    if (phonesSection != null && phonesSection != "")
                     {
-                        phonesBlock += "\r\n" + ("F: " + Fax.Trim()).Trim();
+                        phonesSection += "\r\n" + ("F: " + Fax.Trim()).Trim();
                     }
                     else
                     {
-                        phonesBlock = ("F: " + Fax.Trim()).Trim();
+                        phonesSection = ("F: " + Fax.Trim()).Trim();
                     }
                 }
-                return phonesBlock;
+                return phonesSection;
             }
             set
             {
-                phonesBlock = value;
+                phonesSection = value;
             }
         }
 
-        public string EmailHomepageBlock
+        public string EmailHomepageSection
         {
             get
             {
-                string emailHomepageBlock = "";
+                string emailHomepageSection = "";
 
                 if (Email != null && Email != "")
                 {
-                    emailHomepageBlock = Email;
+                    emailHomepageSection = Email;
                 }
                 if (Email2 != null && Email2 != "")
                 {
-                    if (emailHomepageBlock != null && emailHomepageBlock != "")
+                    if (emailHomepageSection != null && emailHomepageSection != "")
                     {
-                        emailHomepageBlock = emailHomepageBlock.Trim() + "\r\n" + Email2.Trim();
+                        emailHomepageSection = emailHomepageSection.Trim() + "\r\n" + Email2.Trim();
                     }
                     else
                     {
-                        emailHomepageBlock = Email2;
+                        emailHomepageSection = Email2;
                     }
                 }
                 if (Email3 != null && Email3 != "")
                 {
-                    if (emailHomepageBlock != null && emailHomepageBlock != "")
+                    if (emailHomepageSection != null && emailHomepageSection != "")
                     {
-                        emailHomepageBlock = emailHomepageBlock + "\r\n" + Email3.Trim();
+                        emailHomepageSection = emailHomepageSection + "\r\n" + Email3.Trim();
                     }
                     else
                     {
-                        emailHomepageBlock = Email3;
+                        emailHomepageSection = Email3;
                     }
                 }
                 if (Homepage != null && Homepage != "")
                 {
-                    if (emailHomepageBlock != null && emailHomepageBlock != "")
+                    if (emailHomepageSection != null && emailHomepageSection != "")
                     {
-                        emailHomepageBlock = emailHomepageBlock + "\r\n" + "Homepage:\r\n" + Homepage.Trim();
+                        emailHomepageSection = emailHomepageSection + "\r\n" + "Homepage:\r\n" + Homepage.Trim();
                     }
                     else
                     {
-                        emailHomepageBlock = "Homepage:\r\n" + Homepage.Trim();
+                        emailHomepageSection = "Homepage:\r\n" + Homepage.Trim();
                     }
                 }
-                return emailHomepageBlock;
+                return emailHomepageSection;
             }
             set
             {
-                emailHomepageBlock = value;
+                emailHomepageSection = value;
             }
         }
 
-        public string BirthAnnivBlock
+        public string BirthdayAnniversarysection
         {
             get
             {
-                string bithString = GetAge(BDay, BMonth, BYear, "Birthday ");
-                string annivString = GetAnniversary(ADay, AMonth, AYear, "Anniversary ");
-                string birthAnnivBlock = "";
+                string birthString = GetAge(BDay, BMonth, BYear, "Birthday ");
+                string anniverString = GetAnniversary(ADay, AMonth, AYear, "Anniversary ");
+                string birthdayAnniversarysection = "";
 
-                if (bithString != null && bithString != "")
+                if (birthString != null && birthString != "")
                 {
-                    birthAnnivBlock = bithString.Trim();
+                    birthdayAnniversarysection = birthString.Trim();
                 }
-                if (annivString != null && annivString != "")
+                if (anniverString != null && anniverString != "")
                 {
-                    if (birthAnnivBlock != null && birthAnnivBlock != "")
+                    if (birthdayAnniversarysection != null && birthdayAnniversarysection != "")
                     {
-                        birthAnnivBlock += "\r\n" + annivString.Trim();
+                        birthdayAnniversarysection += "\r\n" + anniverString.Trim();
                     }
                     else
                     {
-                        birthAnnivBlock = annivString.Trim();
+                        birthdayAnniversarysection = anniverString.Trim();
                     }
                 }
-                return birthAnnivBlock;
+                return birthdayAnniversarysection;
             }
             set
             {
-                birthAnnivBlock = value;
+                birthdayAnniversarysection = value;
             }
         }
 
-        public string SecondaryBlock
+        public string SecondarySection
         {
             get
             {
@@ -619,7 +619,7 @@ namespace WebAddressbookTests
             return Regex.Replace(phone, "[ \\-()]", "") + "\r\n";
         }
 
-        public string ReturnDetailwithRN(string text)
+        public string ReturnDetailswithRN(string text)
         {
             if (text == null || text == "")
             {
@@ -628,7 +628,7 @@ namespace WebAddressbookTests
             return text + "\r\n";
         }
 
-        public string ReturnDetailwithoutRN(string text)
+        public string ReturnDetailswithoutRN(string text)
         {
             if (text == null || text == "")
             {
@@ -637,7 +637,7 @@ namespace WebAddressbookTests
             return text;
         }
 
-        public string ReturnDetailwithRNabove(string text)
+        public string ReturnDetailswithRNabove(string text)
         {
             if (text == null || text == "")
             {
@@ -646,7 +646,7 @@ namespace WebAddressbookTests
             return "\r\n" + text;
         }
 
-        public string ReturnDetailwithRNRNabove(string text)
+        public string ReturnDetailswithRNRNabove(string text)
         {
             if (text == null || text == "")
             {

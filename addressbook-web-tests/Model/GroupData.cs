@@ -11,6 +11,7 @@ namespace WebAddressbookTests
         public GroupData(string name)
         {
             Name = name;
+
         }
 
         public bool Equals(GroupData other)
@@ -19,15 +20,22 @@ namespace WebAddressbookTests
             {
                 return false;
             }
-
             if (Object.ReferenceEquals(this, other))
             {
                 return true;
             }
-
             return Name == other.Name;
         }
 
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return "name=" + Name + "\nheader= " + Header + "\nfooter=" + Footer;
+        }
 
         public int CompareTo(GroupData other)
         {
@@ -38,16 +46,6 @@ namespace WebAddressbookTests
             return Name.CompareTo(other.Name);
         }
 
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return "name=" + Name;
-        }
-
         public string Name { get; set; }
 
         public string Header { get; set; }
@@ -55,5 +53,6 @@ namespace WebAddressbookTests
         public string Footer { get; set; }
 
         public string Id { get; set; }
+
     }
 }
