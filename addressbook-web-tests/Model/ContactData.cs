@@ -379,19 +379,25 @@ namespace WebAddressbookTests
         {
             get
             {
-                if (fullNameNicknamesection != null)
+                string fullNameNicknamesection = "";
+                string fullName = ReturnFullName(Firstname.Trim(), Middlename.Trim(), Lastname.Trim());
+                if (fullName != null && fullName != "")
                 {
-                    return fullNameNicknamesection;
+                    fullNameNicknamesection = fullName.Trim();
                 }
-                else
+                if (Nickname != null && Nickname != "")
                 {
-                    if (ReturnFullName(Firstname.Trim(), Middlename.Trim(), Lastname.Trim()) != "")
+                    if (fullNameNicknamesection != null && fullNameNicknamesection != "")
                     {
-                        return (ReturnFullName(Firstname.Trim(), Middlename.Trim(), Lastname.Trim()) + "\r\n" + Nickname.Trim());
+                        fullNameNicknamesection += "\r\n" + Nickname.Trim();
                     }
                     else
-                        return (ReturnDetailswithoutRN(Nickname));
+                    {
+                        fullNameNicknamesection = Nickname.Trim();
+                    }
                 }
+
+                return fullNameNicknamesection;
             }
             set
             {
