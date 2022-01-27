@@ -19,6 +19,12 @@ namespace WebAddressbookTests
         public string birthdayAnniversarysection;
         public string secondaryBlock;
 
+        public ContactData()
+        {
+
+
+        }
+
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
@@ -93,6 +99,8 @@ namespace WebAddressbookTests
 
         public string GetAge(string day, string month, string year, string fieldName)
         {
+            if (day == null) return null;
+
             int monthNumber = 0;
             int Age;
             switch (month)
@@ -196,6 +204,8 @@ namespace WebAddressbookTests
 
         public string GetAnniversary(string day, string month, string year, string fieldName)
         {
+            if (day == null) return null;
+
             int Anniversary;
             if (year != "")
                 Anniversary = DateTime.Now.Year - Int32.Parse(year);
@@ -281,6 +291,8 @@ namespace WebAddressbookTests
             }
         }
 
+
+        [Newtonsoft.Json.JsonIgnore]
         public string AllInformation
         {
             get
@@ -375,6 +387,7 @@ namespace WebAddressbookTests
             }
         }
 
+        [Newtonsoft.Json.JsonIgnore]
         public string FullNameNicknamesection
         {
             get
@@ -581,6 +594,8 @@ namespace WebAddressbookTests
         {
             get
             {
+                if (Address2 == null) return null;
+
                 string secondaryBlock = "";
                 if (Address2.Trim() != null && Address2.Trim() != "")
                 {
