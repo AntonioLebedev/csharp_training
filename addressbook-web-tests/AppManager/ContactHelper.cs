@@ -37,6 +37,7 @@ namespace WebAddressbookTests
 
         }
 
+
         public ContactData GetInfoFromEditForm()
         {
             manager.Navigator.GoToHomePage();
@@ -149,9 +150,28 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Modify(ContactData contact, ContactData newData)
+        {
+            IsContactPresent();
+            InitContactModification(contact.Id);
+            FillContactForm(newData);
+            SubmitContacModification();
+            manager.Navigator.ReturnToHomePage();
+            return this;
+        }
+
         public ContactHelper Remove(int p)
         {
             SelectContact(p);
+            RemoveContact();
+            manager.Navigator.GoToHomePage();
+            return this;
+        }
+
+        public ContactHelper Remove(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(contact.Id);
             RemoveContact();
             manager.Navigator.GoToHomePage();
             return this;
@@ -199,6 +219,14 @@ namespace WebAddressbookTests
             return this;
         }
 
+        private ContactHelper InitContactModification(string id)
+        {
+            driver.FindElement(By.XPath("//tr[./td[./input[@name='selected[]' and @value='" + id + "']]]"))
+                .FindElement(By.XPath(".//img[@alt='Edit']")).Click();
+
+            return this;
+        }
+
         public ContactHelper SubmitContacModification()
         {
             driver.FindElement(By.Name("update")).Click();
@@ -209,6 +237,12 @@ namespace WebAddressbookTests
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 1) + "]/td/input")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(string id)
+        {
+            driver.FindElement(By.XPath("//input[@name='selected[]' and @value='" + id + "']")).Click();
             return this;
         }
 

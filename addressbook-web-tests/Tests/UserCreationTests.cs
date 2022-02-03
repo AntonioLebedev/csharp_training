@@ -9,6 +9,7 @@ using System.Xml;
 using Newtonsoft.Json;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace WebAddressbookTests
 {
@@ -82,17 +83,38 @@ namespace WebAddressbookTests
         [Test, TestCaseSource("ContactDataFromJSONFile")]
         public void UserCreationTest(ContactData contact)
         {
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAllContacts();
 
             app.Contacts.Create(contact);
 
             Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactQuantity());
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAllContacts();
             oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+        }
+
+        [Test]
+
+        public void TestContactDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+
+            List<ContactData> fromUI = app.Contacts.GetContactList();
+
+            DateTime end = DateTime.Now;
+
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            
+            List<ContactData> fromDb = ContactData.GetAllContacts();
+
+            end = DateTime.Now;
+
+            System.Console.Out.WriteLine(end.Subtract(start));
         }
 
     }
