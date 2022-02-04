@@ -122,6 +122,8 @@
   <ItemGroup>
     <Compile Include="AppManager\ContactHelper.cs" />
     <Compile Include="Model\AddressBookDB.cs" />
+    <Compile Include="Model\GroupContactRelation.cs" />
+    <Compile Include="Tests\AddingContactToGroupTests.cs" />
     <Compile Include="Tests\GroupTestBase.cs" />
     <Compile Include="Tests\UserInformationTest.cs" />
     <Compile Include="SearchTests.cs" />
