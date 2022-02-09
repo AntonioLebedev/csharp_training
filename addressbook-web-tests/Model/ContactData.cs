@@ -11,14 +11,23 @@ namespace WebAddressbookTests
     [Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
+        [Newtonsoft.Json.JsonIgnore]
         public string allPhones;
+        [Newtonsoft.Json.JsonIgnore]
         public string allEmails;
+        [Newtonsoft.Json.JsonIgnore]
         public string allInformation;
+        [Newtonsoft.Json.JsonIgnore]
         public string fullNameNicknamesection;
+        [Newtonsoft.Json.JsonIgnore]
         public string titleCompanyAddresssection;
+        [Newtonsoft.Json.JsonIgnore]
         public string phonesSection;
+        [Newtonsoft.Json.JsonIgnore]
         public string emailHomepageSection;
+        [Newtonsoft.Json.JsonIgnore]
         public string birthdayAnniversarysection;
+        [Newtonsoft.Json.JsonIgnore]
         public string secondaryBlock;
 
         public ContactData()
@@ -53,7 +62,7 @@ namespace WebAddressbookTests
 
         public override string ToString()
         {
-            return "Firstname=" + Firstname + "\nMiddlename= " + Middlename + "\nLastname= " + Lastname;
+            return "Firstname=" + Firstname + "\nMiddlename= " + Middlename + "\nLastname= " + Lastname + "\nId= " + Id;
         }
 
         public int CompareTo(ContactData other)
@@ -108,66 +117,82 @@ namespace WebAddressbookTests
 
         public string HomePhone { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "mobile")]
 
         public string MobilePhone { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "work")]
 
         public string WorkPhone { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "fax")]
 
         public string Fax { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "email")]
 
         public string Email { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "email2")]
 
         public string Email2 { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "email3")]
 
         public string Email3 { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "homepage")]
 
         public string Homepage { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "bday")]
 
         public string BDay { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "bmonth")]
 
         public string BMonth { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "byear")]
 
         public string BYear { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "aday")]
 
         public string ADay { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "amonth")]
 
         public string AMonth { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "ayear")]
 
         public string AYear { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "address2")]
 
         public string Address2 { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "phone2")]
 
         public string Phone2 { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
         [Column(Name = "notes")]
 
         public string Notes { get; set; }
@@ -175,14 +200,6 @@ namespace WebAddressbookTests
         [Column(Name = "deprecated")]
         public string Deprecated { get; set; }
 
-        public static List<ContactData> GetAllContacts()
-        {
-            using (AddressBookDB db = new AddressBookDB())
-            {
-                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
-            }
-
-        }
 
         public string GetAge(string day, string month, string year, string fieldName)
         {
@@ -340,6 +357,7 @@ namespace WebAddressbookTests
         }
 
 
+        [Newtonsoft.Json.JsonIgnore]
         public string AllPhones
         {
             get
@@ -359,6 +377,7 @@ namespace WebAddressbookTests
             }
         }
 
+        [Newtonsoft.Json.JsonIgnore]
         public string AllEmails
         {
             get
@@ -505,6 +524,7 @@ namespace WebAddressbookTests
             }
         }
 
+        [Newtonsoft.Json.JsonIgnore]
         public string TitleCompanyAddresssection
         {
             get
@@ -544,6 +564,7 @@ namespace WebAddressbookTests
             }
         }
 
+        [Newtonsoft.Json.JsonIgnore]
         public string PhonesSection
         {
             get
@@ -595,6 +616,7 @@ namespace WebAddressbookTests
             }
         }
 
+        [Newtonsoft.Json.JsonIgnore]
         public string EmailHomepageSection
         {
             get
@@ -646,6 +668,7 @@ namespace WebAddressbookTests
             }
         }
 
+        [Newtonsoft.Json.JsonIgnore]
         public string BirthdayAnniversarysection
         {
             get
@@ -677,6 +700,8 @@ namespace WebAddressbookTests
             }
         }
 
+
+        [Newtonsoft.Json.JsonIgnore]
         public string SecondarySection
         {
             get
@@ -794,6 +819,26 @@ namespace WebAddressbookTests
             }
 
             return FullName;
+        }
+
+        public static List<ContactData> GetAllContacts()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
+            }
+
+        }
+
+        public List<GroupData> GetGroups()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Groups
+                        from gcr in db.GCR.Where(p => p.ContactId == Id && p.GroupId == g.Id)
+                        select g).Distinct().ToList();
+            }
+
         }
 
     }

@@ -14,7 +14,7 @@ using System.Linq;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class UserCreationTests : AuthTestBase
+    public class UserCreationTests : ContactTestBase
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
@@ -94,6 +94,16 @@ namespace WebAddressbookTests
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+        }
+
+        [Test]
+        public void ContactInGroups()
+        {
+            foreach (GroupData group in ContactData.GetAllContacts()[0].GetGroups())
+            {
+                System.Console.Out.WriteLine(group);
+            }
+
         }
 
         [Test]

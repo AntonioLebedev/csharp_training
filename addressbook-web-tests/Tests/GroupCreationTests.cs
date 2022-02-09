@@ -151,6 +151,16 @@ namespace WebAddressbookTests
             }
         }
 
+        [Test]
+        public void ContactsInGroup()
+        {
+            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            }
+
+        }
+
 
     }
 }
