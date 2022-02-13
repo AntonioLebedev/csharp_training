@@ -63,8 +63,9 @@ namespace WebAddressbookTests
         {
             List<GroupData> groups = new List<GroupData>();
             Excel.Application app = new Excel.Application();
+            app.Visible = true;
             Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlsx"));
-            Excel.Worksheet sheet = wb.ActiveSheet;
+            Excel.Worksheet sheet = wb.Sheets[1];
             Excel.Range range = sheet.UsedRange;
 
             for (int i = 1; i <= range.Rows.Count; i++)
@@ -93,9 +94,10 @@ namespace WebAddressbookTests
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
             List<GroupData> newGroups = GroupData.GetAll();
+            newGroups.Sort();
+            group.Id = newGroups[newGroups.Count - 1].Id;
             oldGroups.Add(group);
             oldGroups.Sort();
-            newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
         }
 
@@ -145,7 +147,7 @@ namespace WebAddressbookTests
         [Test]
         public void TestDBConnectivity()
         {
-            foreach (ContactData contact in GroupData.GetAll()[0].GetContacts())
+            foreach (ContactData contact in ContactData.GetAllContacts())
             {
                 System.Console.Out.WriteLine(contact.Deprecated);
             }

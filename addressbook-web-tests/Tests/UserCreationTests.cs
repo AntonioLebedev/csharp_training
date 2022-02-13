@@ -90,9 +90,10 @@ namespace WebAddressbookTests
             Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactQuantity());
 
             List<ContactData> newContacts = ContactData.GetAllContacts();
+            newContacts.Sort();
+            contact.Id = newContacts[newContacts.Count - 1].Id;
             oldContacts.Add(contact);
             oldContacts.Sort();
-            newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
         }
 
